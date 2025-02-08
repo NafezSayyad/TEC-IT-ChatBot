@@ -1,0 +1,86 @@
+How Do I Create a Barcode for My Product?
+
+Barcodes for Retail Use
+
+To generate a valid barcode for retail use, you need to register it with your local GS1 organization. Follow these steps:
+
+Visit the GS1 website: Go to https://www.gs1.org.
+Register your company: Obtain a company prefix for your barcode number.
+Assign identification numbers: After receiving the GS1 company prefix, assign identification numbers to your products.
+Generate the barcode: Use barcode software tools to create the required EAN-13 or UPC-A barcode.
+Test the barcode: Ensure the generated barcode is tested before using it on your products.
+For more detailed information, refer to:
+
+10 Steps to Barcode Your Product
+Get Barcodes
+How Can I Generate a GS1 DataMatrix?
+
+To create a GS1 DataMatrix barcode:
+
+Select Data Matrix as the symbology.
+Set the Data Matrix format property to GS1/EAN: This adds an FNC1 on the first code word position, marking the barcode as GS1/EAN type.
+Enable Escape Sequences.
+Use the sequence \F to encode an FNC1 as a separator between variable-length AI fields: When the barcode reader encounters such an FNC1, it will return GS (ASCII 29).
+How to Encode FNC1 in a GS1 Barcode?
+
+To add the functional character FNC1 to your barcode data:
+
+Enter the sequence \F where you need the FNC1.
+Ensure 'Escape Sequences' are enabled in the barcode settings.
+The Application Identifier will be recognized automatically in the Human Readable Text (HRT).
+How to Encode GS, RS, and EOT into a 2D Barcode?
+
+RS, GS, and EOT are ASCII control characters used to format data in a 2D barcode (see ISO/IEC 15434). To encode them:
+
+\x1d: GS (Group Separator), ASCII Code 29 (Hex 1D)
+\x1e: RS (Record Separator), ASCII Code 30 (Hex 1E)
+\x04: EOT (End of Transmission), ASCII Code 4 (Hex 04)
+Enable 'Escape Sequences' in the barcode properties to convert these hexadecimal sequences into their ASCII values.
+
+Format 06 Example:
+
+shell
+Copy
+Edit
+[)>\x1e06\x1dSP66831000G\x1dSV9117327G\x1dS16S3.0G\x1e\x04
+Note: The header and trailer of Format 06 can be encoded using Macro 06 Format (see 2D specific barcode properties).
+
+How to Encode Binary Data (2D Codes)
+
+To encode binary data in a 2D barcode:
+
+Switch off code page conversion: Use encoding mode LowByte.
+Force binary encoding mode if available: For example, see PDF417 encoding mode or Data Matrix EnforceBinaryEncoding.
+This is relevant for applications where you encode binary data in a 2D symbol (e.g., Data Matrix).
+
+What Are the Correct Font Settings for EAN-13 or UPC-A?
+
+EAN-13 and UPC-A can be printed in various sizes as specified in their standards. The nominal module width is 0.330 mm (optimized for 300 dpi printers, it would be 0.339 mm). The human-readable font must be adapted to these sizes.
+
+How to Use the Compressed Mode of Code 128?
+
+To use the compressed mode of Code 128:
+
+Select 'Code128' as the barcode type.
+Ensure the 'Format' string is cleared.
+Code 128 auto-compresses data by default, and subset switching is done automatically.
+
+What Are Data Segments in GS1 DataBar / RSS Expanded?
+
+GS1 DataBar Expanded (also known as RSS Expanded) symbols are constructed as a sequence of triplets, each consisting of a finder pattern between two symbol characters. Each triplet contains 2 data segments (symbol characters).
+
+Each segment/data character encodes 12 bits.
+The smallest symbol uses at least 4 symbol characters (including 1 check character) and can encode 36 bits.
+Input data is processed with a character set mapping algorithm and error recognition. Predicting the number of data segments required for a given set of input characters can be complex.
+
+TEC-IT software allows you to adjust the number of data segments per row in GS1 DataBar Expanded Stacked.
+
+How Can I Enable the 2D Composite Component for EAN-13?
+
+To add a 2D composite component to an EAN-13 barcode:
+
+Select the EAN-13 symbology.
+Add a 2D composite component using the appropriate function:
+TBarCode .NET: barcodeControl1.Barcode.CompositeSymbol.CCType = CompositeComponentTypes.Auto;
+TBarCode DLL: BCSet2DCompositeComponent(pBarcode, eCC_Auto);
+TBarCode OCX: TBarCode111.CompositeComponent = eCC_Auto

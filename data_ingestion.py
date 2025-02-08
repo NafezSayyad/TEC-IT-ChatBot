@@ -1,8 +1,13 @@
 import os
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.docstore.document import Document
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.embeddings.openai import OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
+from dotenv import load_dotenv
+
+
+load_dotenv()
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 def ingest_data(data_folder="data"):
     """Reads .txt files in the data folder, chunks them, embeds them, and stores in FAISS."""
@@ -21,7 +26,8 @@ def ingest_data(data_folder="data"):
             split_docs.append(Document(page_content=chunk))
 
     # Generate embeddings and store in FAISS
-    embeddings = OpenAIEmbeddings()  # uses OPENAI_API_KEY
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+
     vectorstore = FAISS.from_documents(split_docs, embeddings)
 
     # Save the FAISS index to a local folder

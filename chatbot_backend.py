@@ -1,18 +1,18 @@
 import os
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.llms import OpenAI
+from langchain_community.embeddings.openai import OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_community.chat_models import ChatOpenAI 
 from langchain.chains import RetrievalQA
 
 def load_vectorstore(index_path="tec_it_faiss_index"):
     embeddings = OpenAIEmbeddings()
-    vectorstore = FAISS.load_local(index_path, embeddings)
+    vectorstore = FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
     return vectorstore
 
 def build_qa_chain(vectorstore):
-    llm = OpenAI(
+    llm = ChatOpenAI(
         temperature=0.0,
-        model_name="gpt-4o-mini"
+        model="gpt-4"
     )
     retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k":3})
     qa_chain = RetrievalQA.from_chain_type(
