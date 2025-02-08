@@ -10,7 +10,7 @@ This project aims to build a backend-only AI chatbot for TEC-IT customer support
 
 # Project Setup Guide
 
-This guide will help you set up and run the project from scratch using Python virtual environments, an `.env` file, and Visual Studio Code.
+This guide will help you set up and configure the TEC-IT-ChatBot project from scratch using Python virtual environments, an `.env` file, and Visual Studio Code.
 
 ---
 
@@ -34,8 +34,8 @@ Ensure you have the following installed on your system:
 ### 2️⃣ Clone the Repository
 
 ```sh
-git clone https://github.com/your-repo/project-name.git
-cd project-name
+git clone https://github.com/NafezSayyad/TEC-IT-ChatBot.git
+cd TEC-IT-ChatBot
 ```
 
 ---
@@ -63,12 +63,10 @@ source venv/bin/activate
 Inside the root directory, create a **.env** file and add the following:
 
 ```ini
-SECRET_KEY=your_secret_key
-DATABASE_URL=your_database_url
-DEBUG=True
+OPENAI_API_KEY=your_openai_api_key
 ```
 
-> ✅ Update values accordingly based on your project requirements.
+> ✅ Replace `your_openai_api_key` with your actual OpenAI API key.
 
 ---
 
@@ -103,29 +101,7 @@ pip freeze > requirements.txt
 
 ---
 
-### 7️⃣ Running the Project
-
-To run the project, execute:
-
-```sh
-python main.py
-```
-
-Or, if using Django/Flask:
-
-```sh
-python manage.py runserver
-```
-
-For FastAPI:
-
-```sh
-uvicorn main:app --reload
-```
-
----
-
-### 8️⃣ Deactivating Virtual Environment
+### 7️⃣ Deactivating Virtual Environment
 
 Once you're done, deactivate the virtual environment using:
 
@@ -139,7 +115,6 @@ venv\Scripts\deactivate  # Windows
 ## ✅ Additional Notes
 
 - If you face permission issues on Linux/macOS, try `chmod +x venv/bin/activate`.
-- For database setup, update `DATABASE_URL` in `.env` accordingly.
 - Consider using a **.gitignore** file to exclude unnecessary files, including `venv/` and `.env`.
 
 ---
@@ -154,4 +129,5 @@ venv\Scripts\deactivate  # Windows
 
 ---
 
-🎉 **You're all set!** 🚀 Now you can start coding and building your project. Happy coding! 😃
+🎉 **You're all set!** 🚀 Now you can start coding and building your TEC-IT-ChatBot project. Happy coding! 😃
+
